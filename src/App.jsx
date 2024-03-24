@@ -8,35 +8,47 @@ function App() {
     projects: [],
   });
 
-  function handleAddProject(){
-    setProjectState(prevState => {
+  function projectContainer(projectData) {
+    setProjectState((prevState) => {
+      const newProject = { ...projectData, id: Math.random() };
+
       return {
         ...prevState,
-        projectAdded: null
-      }
-    })
-  }
-  function handleCancel(){
-    setProjectState(prevState => {
-      return {
-        ...prevState,
+        projects: [...prevState.projects, newProject],
         projectAdded: undefined
-      }
-    })
+      };
+    });
   }
 
-  let content
-  if(projectState.projectAdded===undefined)
-  {
-    content = <FallBackContent onClickAdd = {handleAddProject}/>
+  function handleAddProject() {
+    setProjectState((prevState) => {
+      return {
+        ...prevState,
+        projectAdded: null,
+      };
+    });
   }
-  else if(projectState.projectAdded===null){
-    content = <NewProject onCancel = {handleCancel}/>
+  function handleCancel() {
+    setProjectState((prevState) => {
+      return {
+        ...prevState,
+        projectAdded: undefined,
+      };
+    });
+  }
+
+
+  console.log(projectState.projects)
+  let content;
+  if (projectState.projectAdded === undefined) {
+    content = <FallBackContent onClickAdd={handleAddProject} />;
+  } else if (projectState.projectAdded === null) {
+    content = <NewProject onSave={projectContainer} onCancel={handleCancel} />;
   }
 
   return (
     <div className=" h-screen w-full mt-12 flex gap-8">
-      <Sidebar onClickAdd = {handleAddProject} />
+      <Sidebar projects = {projectState.projects} onClickAdd={handleAddProject} />
       {content}
     </div>
   );
