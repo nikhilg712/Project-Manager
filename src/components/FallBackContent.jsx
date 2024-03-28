@@ -9,7 +9,7 @@ const FallBackContent = ({onClickAdd}) => {
         No Project Selected
       </h2>
       <p className=" text-amber-900 ">
-        Select a project to get started with a new one.
+        Select a project or get started with a new one.
       </p>
       <button onClick={onClickAdd} className="text-yellow-200 text-center rounded-2xl mt-7 bg-yellow-900  h-10 w-44  hover:bg-yellow-950 hover:text-yellow-100">
         Create New Project
